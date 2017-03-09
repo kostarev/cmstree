@@ -1,0 +1,125 @@
+body {
+	margin: 0; padding: 25px 0 45px 0;
+	background: repeat-x url(images/bck.png);
+	font-family: Arial, Helvetica, sans-serif; font-size: 12px;
+	color: #000;
+}
+
+a{text-decoration: none; color:#2E76F5;}
+a:hover{color:#120867;}
+
+.big_form textarea{width:98%;height:50px;}
+
+.block{margin:10px;padding:5px;background-color: #F5F0F0; border: solid 1px #E5DEDE; box-shadow: 3px 4px 2px #C6BFBF;}
+
+#container:after, #content .post .entry:after, #content .navigation:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+#page {
+	margin: 0 auto; padding: 20px 30px 0 30px;
+	width: 920px;
+	background: #fff no-repeat url(images/bckpage.png);
+}
+#header {
+	position: relative;
+	height: 70px;
+	background: no-repeat url(images/bckheader.png);
+}
+#header h1 {
+	margin: 0 0 0 70px; padding: 10px 0 0 0;
+	font-size: 24px;
+}
+#header h1 a {
+	color: #fff;
+	text-decoration: none;
+}
+#header p {
+	margin: 0 0 0 125px;
+	color: #fff;
+        font-size: medium;
+}
+#header form {
+	position: absolute;
+	top: 20px; right: 25px;
+	margin: 0;
+}
+input,textarea {
+	vertical-align: middle;
+        border: solid 1px #cccccc;
+}
+#header form .text {
+	margin: 0 5px 0 0; padding: 4px 5px 0 5px;
+	width: 185px; height: 20px;
+	background: no-repeat url(images/bckheaderformtext.png);
+}
+* html #header form .text {
+	background-attachment: fixed;
+}
+#header form .btn {
+	width: 65px; height: 24px;
+	background: no-repeat url(images/bckheaderformbtn.png);
+	font-size: 14px; font-weight: bold;
+	color: #fff;
+	cursor: pointer;
+}
+#menu {
+	margin: 10px 0; padding: 0 0 0 30px;
+	list-style-type: none;
+	height: 50px;
+	overflow: hidden;
+	background: no-repeat url(images/bckmenu.png);
+}
+#menu li {
+	float: left;
+	margin: 0 0 0 15px; padding: 15px 0 15px 15px;
+	background: left 12px no-repeat url(images/bckmenuli.png);
+	font-size: 12px; font-weight: bold;
+	text-transform: uppercase;
+}
+#menu li.first {
+	margin: 0; padding-left: 0;
+	background: none;
+}
+#menu li a {
+	float: left;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+}
+#menu li a:hover {
+	background: #fff right top no-repeat url(images/bckmenuliahover.png);
+	color: #1e4983;
+}
+#menu li a span {
+	float: left;
+	padding: 0 5px;
+	line-height: 20px;
+}
+#menu li a:hover span {
+	background: no-repeat url(images/bckmenuliahoverspan.png);
+}
+#container {
+	margin: 0 20px;
+	width: 880px;
+}
+#content {
+	margin: 0 35px 0 0;
+}
+
+
+#footer {
+	position: relative;
+	margin: 15px 0 0 0; padding: 0 0 0 30px;
+	height: 70px; line-height: 70px;
+	background: no-repeat url(images/bckheader.png);
+	color: #465c03;
+	font-size: 9px;
+}
+#footer a {
+	color: #fff;
+	text-decoration: none;
+}
