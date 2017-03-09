@@ -179,7 +179,7 @@ Class Controller_login Extends Controller_Base {
             $this->des->set('title', 'Авторизация');
 
             try {
-                if ($arr = SiteRead::me()->auth($_POST['login'], $_POST['pas'])) {
+                if ($arr = $this->user->login_pas($_POST['login'], $_POST['pas'])) {
                     //Авторизируем пользователя
                     $_SESSION['user_id'] = $arr['id'];
                     //Пишем куки-----
@@ -187,7 +187,7 @@ Class Controller_login Extends Controller_Base {
                         setcookie('id', $arr['id'], time() + 3600 * 24 * 30, '/');
                         setcookie('p', $arr['pas'], time() + 3600 * 24 * 30, '/');
                     }
-                    //--------------              
+                    //--------------
                     $this->loc($this->back_url);
                 }
             } catch (Exception $e) {

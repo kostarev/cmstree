@@ -148,7 +148,6 @@ Class SiteWrite extends CMS_System {
                 return Array('pas' => $md5pas, 'email' => $email, 'login' => $login);
             }
         }
-
         //-------------------------------------
 
 
@@ -161,22 +160,6 @@ Class SiteWrite extends CMS_System {
         return Array('id' => $id, 'pas' => $md5pas, 'email' => $email, 'login' => $login);
     }
 
-    function steamRegistrationUser($steamId, $name) {
-        $res = $this->db->prepare("SELECT id FROM users WHERE steamId=?;");
-        $res->execute(Array($steamId));
-        if (!$row = $res->fetch()) {
-            $res = $this->db->prepare("INSERT INTO users (steamId,reg_time,name) VALUES (?,UNIX_TIMESTAMP(),?);");
-            if (!$res->execute(Array($steamId, $name))) {
-                throw new Exception($this->db->errorInfo());
-            }
-            $id = $this->db->lastInsertId();
-        } else {
-            $id = $row['id'];
-            $res = $this->db->prepare("UPDATE users SET name=? WHERE id=?;");
-            $res->execute(Array($name, $id));
-        }
-        return $id;
-    }
 
     function email_confirm($code) {
         $res = $this->db->prepare("SELECT * FROM tmp_users WHERE code=?;");
@@ -251,8 +234,30 @@ Class SiteWrite extends CMS_System {
 
     //Удаление действия
     function action_del($name) {
+        $res = $this->db->prepare("SELECT * FROM actions WHERE name=?;");
+        $res->execute(Array($name));
+        if($row = $res->fetch()){
+            $id = $row['id'];
+        
+            $res = $this->db->query("SELECT * FROM groups;");
+            $res1 = $this->db->prepare("UPDATE groups SET actions = ? WHERE name = ?;");
+            while($row = $res->fetch()){
+                $gr_name = $row['name'];
+             $actions_arr = explode(',', $row['actions']);
+             
+                foreach ($actions_arr AS $key => $val) {
+                   if ($id == $val) {
+                       unset($actions_arr[$key]);
+                   }
+               }
+               $action_str = implode(',', $actions_arr);               
+               $res1->execute(Array($action_str, $gr_name));
+            }           
+            
         $res = $this->db->prepare("DELETE FROM actions WHERE name=?;");
         $res->execute(Array($name));
+        $this->cache->flush();
+        }
     }
 
 }

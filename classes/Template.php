@@ -155,12 +155,12 @@ Class Template extends CMS_System {
 
                 //Вывод логов БД
                 if ($this->conf['developer']['sql_table']) {
-                    echo SiteRead::me()->dbLog2html();
+                    echo DevelopFunc::dbLog2html();
                 }
 
                 //Вывод Memcache
                 if ($this->conf['developer']['memcache_table']) {
-                    echo SiteRead::me()->memCache2html();
+                    echo DevelopFunc::memCache2html();
                 }
             }
         }

@@ -12,7 +12,7 @@ Class Controller_access Extends Controller_Base {
 
     public function index() {
 
-        //Обработка формы-------
+        //Сохранение данных-------
         if (isset($_POST['save'])) {
 
             foreach ($this->groups AS $gr) {
@@ -20,13 +20,32 @@ Class Controller_access Extends Controller_Base {
                     
                     try{
                         SiteWrite::me()->save_access($gr['name'], $act['name'], isset($_POST[$gr['name']][$act['name']]));
-                    }  catch (Exception $e){$this->error($e->getMessage());}
+                    }  catch (Exception $ex){$this->error($ex->getMessage());}
                     
                 }
             }
             $this->loc(H.'/panel/access');
         }
-        //----------------------
+        //Добавление действия----
+        if(isset($_POST['add'])){
+            try{
+                SiteWrite::me()->action_add($_POST['action_name'],$_POST['action_title']);
+            } catch (Exception $ex) {
+            $this->error($ex->getMessage());
+            }
+            $this->loc(H.'/panel/access');
+        }
+        //Удаление действия
+        if(isset($_GET['del'])){
+            try{
+                SiteWrite::me()->action_del($_GET['del']);
+            } catch (Exception $ex) {
+                $this->error($ex->getMessage());
+            }
+            $this->loc(H.'/panel/access');
+        }
+        
+        
 
         
         $this->des->set('title', 'Настройки доступа');

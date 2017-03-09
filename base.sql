@@ -163,6 +163,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(70) NOT NULL COMMENT 'Email пользователя',
   `reg_time` int(11) NOT NULL COMMENT 'Время регистрации',
   `last_time` int(11) NOT NULL DEFAULT '0' COMMENT 'Последняя активность',
+  `online_time` int(11) NOT NULL DEFAULT '0' COMMENT 'Суммарное время пребывания на сайте',
+  `ip` VARCHAR(15) COMMENT 'IP адресс последнего посещения',
+  `ua` VARCHAR(150) COMMENT 'UserAgent последнего посещения',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`(15)),
   UNIQUE KEY `login` (`login`(20))
@@ -170,7 +173,16 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 --
 -- Дамп данных таблицы `users`
---
-
+--login - admin, pas - admin
 INSERT INTO `users` (`id`, `login`, `pas`, `group`, `email`, `reg_time`) VALUES
 (1, 'admin', '18951848aa49a788c8d84f9263c7339c', 'root', 'test@mail.ru', 1355594448);
+
+--
+-- Структура таблицы `guests`
+--
+CREATE TABLE IF NOT EXISTS `guests` (
+  `ip` varchar(15) NOT NULL,
+  `ua` varchar(50) NOT NULL,
+  `time` int(11) NOT NULL,
+  `ref` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Неавторизированные гости сайта';
