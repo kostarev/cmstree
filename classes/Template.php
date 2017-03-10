@@ -131,6 +131,12 @@ Class Template extends CMS_System {
             $this->head_arr[] = '<link rel="stylesheet" href="' . H . '/' . $css_file . '" type="text/css" />';
         }
     }
+    
+    function confirmForm($confirm_str, $confirm_url){
+       $this->set('confirm_str', $confirm_str);
+       $this->set('cancel_url', $confirm_url);
+       $this->display('_confirmForm');
+    }
 
     function __destruct() {
 

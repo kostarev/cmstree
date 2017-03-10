@@ -23,6 +23,12 @@
         </table>
         <p><input type="submit" name="save" value="Сохранить" /></p>
     </form>
+       <?php 
+       if(isset($_GET['del'])){
+       $this->confirmForm('Вы действительно хотите удалить этот параметр доступа?', '?');
+       }
+       ?>         
+                
     </div>
                 <div>Добавление действия, требующего проверки доступа
                     <form method="post" action="#">

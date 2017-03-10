@@ -12,6 +12,14 @@ a:hover{color:#120867;}
 
 .block{margin:10px;padding:5px;background-color: #F5F0F0; border: solid 1px #E5DEDE; box-shadow: 3px 4px 2px #C6BFBF;}
 
+.confirmForm{text-align:center; border:double 4px red; margin:20px; padding:10px;}
+
+/*Кнопка*/
+.button{background-color:#ffffff;border:solid 1px #6A2E79;-moz-border-radius:5px;-webkit-border-radius: 5px;border-radius:5px;padding:5px;cursor:pointer; height:25px; color:#000000;margin-top:15px;}
+.button:hover{background-color:#BFFF9D;color:#1F2C4B;border:solid 1px #6A2E79;}
+.button:active{position:relative;top:2px;}
+a.but{text-decoration:none; color:#000000;}
+
 #container:after, #content .post .entry:after, #content .navigation:after {
 	content: ".";
 	display: block;
@@ -47,7 +55,7 @@ a:hover{color:#120867;}
 	top: 20px; right: 25px;
 	margin: 0;
 }
-input,textarea {
+textarea {
 	vertical-align: middle;
         border: solid 1px #cccccc;
 }

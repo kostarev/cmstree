@@ -4,19 +4,24 @@ Class Controller_modules Extends Controller_Base {
 
     public function __construct($args) {
         parent::__construct($args);
-        
+
         SiteRead::me()->access('change-modules');
     }
 
-    public function index() {
+    function index() {
+        //Получаем список модулей
+        $modules = Modules::me()->get_modules();
 
-        $this->des->set('title', 'Панель - Модули');
-        $this->des->set('title_html', '<a href="' . H . '/panel">Панель</a> - Модули');
-        $this->des->display('panel/modules');
-    }
-
-    function install() {
-
+        //Удаление модуля
+        if (isset($_GET['del']) AND isset($_POST['confirm'])) {
+            try {
+                Modules::me()->del($_GET['del']);
+            } catch (Exception $ex) {
+                $this->error($ex->getMessage());
+            }
+            $this->loc(H . '/panel/modules');
+        }
+        
         //Загрузка файла---
         if (isset($_FILES['file'])) {
 
@@ -41,50 +46,37 @@ Class Controller_modules Extends Controller_Base {
                     $this->error('Ошибка перемещения файла в папку модулей');
                 }
 
-                $this->loc(H . '/panel/modules/installed');
+                $this->loc(H . '/panel/modules');
             } else {
                 $this->error('Ошибка открытия. Возможно, загруженный файл не является zip архивом.');
             }
         }
         //-----------------
 
-
-        $this->des->set('install', true);
-        $this->des->set('title', 'Панель - Модули - Загрузка модуля');
-        $this->des->set('title_html', '<a href="' . H . '/panel">Панель</a> - <a href="' . H . '/panel/modules">Модули</a> - Загрузка модуля');
-        $this->des->display('panel/modules');
-    }
-
-    //Выводим все модули
-    function installed() {
-        //Получаем список модулей
-        $modules = Modules::me()->get_modules();
-
         $this->des->set('modules', $modules);
         $this->des->set('installed', true);
-        $this->des->set('title', 'Панель - Модули - Загруженые');
-        $this->des->set('title_html', '<a href="' . H . '/panel">Панель</a> - <a href="' . H . '/panel/modules">Модули</a> - Загруженые');
+        $this->des->set('title', 'Панель - Модули');
+        $this->des->set('title_html', '<a href="' . H . '/panel">Панель</a> - Модули');
         $this->des->display('panel/modules');
     }
 
-    
     //Установка модуля
     function info() {
         if (!isset($this->args[0])) {
             $this->error('Не верная ссылка');
         }
         $fname = $this->args[0];
-        
-        try{
-            if(Modules::me()->install($fname)){
+
+        try {
+            if (Modules::me()->install($fname)) {
                 $this->loc(H . '/panel/modules/installed');
-            }else{
+            } else {
                 $this->des->set('files', Modules::me()->all_files);
             }
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $this->error($e->getMessage());
         }
-        
+
         $this->des->set('title', $fname);
         $this->des->set('module', $fname);
         $this->des->set('info', true);
@@ -97,31 +89,14 @@ Class Controller_modules Extends Controller_Base {
             $this->error('Не верная ссылка');
         }
         $fname = $this->args[0];
-        
+
         try{
             Modules::me()->uninstall($fname);
         }  catch (Exception $e){
             $this->error($e->getMessage());
         }
-         
-        $this->loc(H . '/panel/modules/installed');  
-    }
 
-    function del() {
-        if (!isset($this->args[0])) {
-            $this->error('Не верная ссылка');
-        }
-        $fname = $this->args[0];
-        
-        try{
-            Modules::me()->del($fname);
-        }  catch (Exception $e){
-            $this->error($e->getMessage());
-        }
-        
         $this->loc(H . '/panel/modules/installed');
     }
-
 }
-
 ?>

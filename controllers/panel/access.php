@@ -36,7 +36,7 @@ Class Controller_access Extends Controller_Base {
             $this->loc(H.'/panel/access');
         }
         //Удаление действия
-        if(isset($_GET['del'])){
+        if(isset($_GET['del']) AND isset($_POST['confirm'])){
             try{
                 SiteWrite::me()->action_del($_GET['del']);
             } catch (Exception $ex) {

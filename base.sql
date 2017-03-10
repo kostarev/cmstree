@@ -103,7 +103,6 @@ INSERT INTO `menu` (`mother`, `name`, `title`, `pos`, `access`, `url`) VALUES
 ('panel', 'modules', 'Модули', 4, 'root', '/panel/modules'),
 ('panel', 'users', 'Пользователи', 3, 'panel', '/panel/users'),
 ('panel', 'menu_editor', 'Редактор меню', 2, 'root', '/panel/menu'),
-('modules', 'modules-uploaded', 'Загруженные', 0, 'root', '/panel/modules/installed'),
 ('modules', 'modules-add', 'Добавить', 1, 'root', '/panel/modules/install'),
 ('settings', 'settings-developer', 'Разработчику', 0, 'root', '/panel/settings/developer'),
 ('settings', 'settings-reg', 'Регистрация', 1, 'root', '/panel/settings/reg');
