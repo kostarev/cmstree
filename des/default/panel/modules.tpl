@@ -60,7 +60,7 @@
         <form method="post" enctype="multipart/form-data" action="#">
             Выберите файл модуля (.smod)<br />
             <input type="file" name="file" required="required" />
-            <input type="submit" value="Загрузить" />
+            <input class="button" type="submit" value="Загрузить" />
         </form>
     </div>
     <?endif?>

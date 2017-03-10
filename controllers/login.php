@@ -7,6 +7,11 @@ Class Controller_login Extends Controller_Base {
     }
 
     function registration() {
+        
+        if(empty($_SESSION['after_login_url'])){
+            $_SESSION['after_login_url'] = $this->back_url;
+        }
+        
         if ($this->user['id']) {
             $this->error('Вы уже зарегистрированы');            
         }

@@ -18,7 +18,7 @@ Abstract Class Controller_Base extends CMS_System {
             $url = H;
         }
         
-        if(isset($_SESSION['backurl']) AND $url_key=  array_search($url, $_SESSION['backurl'])){
+        if(isset($_SESSION['backurl']) AND $url_key = array_search($url, $_SESSION['backurl'])){
             unset($_SESSION['backurl'][$url_key]);
         }
         

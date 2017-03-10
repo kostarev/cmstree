@@ -133,8 +133,8 @@ Class Template extends CMS_System {
     }
     
     function confirmForm($confirm_str, $confirm_url){
-       $this->set('confirm_str', $confirm_str);
-       $this->set('cancel_url', $confirm_url);
+       $this->set('confirm_str', Func::filtr($confirm_str));
+       $this->set('cancel_url', Func::filtr($confirm_url));
        $this->display('_confirmForm');
     }
 
