@@ -71,8 +71,8 @@ CREATE TABLE IF NOT EXISTS `groups` (
 --
 
 INSERT INTO `groups` (`name`, `title`, `actions`) VALUES
-('admin', 'Админ', '1,3,2,18,5'),
 ('root', 'Супер админ', ''),
+('admin', 'Админ', '1,2,5'),
 ('user', 'Пользователь', '');
 
 -- --------------------------------------------------------
@@ -104,7 +104,7 @@ INSERT INTO `menu` (`mother`, `name`, `title`, `pos`, `access`, `url`) VALUES
 ('panel', 'modules', 'Модули', 4, 'root', '/panel/modules'),
 ('panel', 'users', 'Пользователи', 3, 'panel', '/panel/users'),
 ('panel', 'menu_editor', 'Редактор меню', 2, 'root', '/panel/menu'),
-('modules', 'modules-add', 'Добавить', 1, 'root', '/panel/modules/install'),
+('modules', 'modules-add', 'Добавить', 1, 'change-modules', '/panel/modules/install'),
 ('settings', 'settings-developer', 'Разработчику', 0, 'root', '/panel/settings/developer'),
 ('settings', 'settings-reg', 'Регистрация', 1, 'root', '/panel/settings/reg');
 

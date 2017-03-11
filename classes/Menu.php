@@ -61,9 +61,12 @@ Class Menu extends CMS_System {
 
     //Получаем информацию об одном пункте
     function get_punkt($name) {
-        $res = $this->db->prepare("SELECT * FROM menu WHERE name=?;");
-        $res->execute(Array($name));
-        return $res->fetch();
+        static $res_get_punct;
+        if(empty($res_get_punct)){
+        $res_get_punct = $this->db->prepare("SELECT * FROM menu WHERE name=?;");
+        }
+        $res_get_punct->execute(Array($name));
+        return $res_get_punct->fetch();
     }
 
     //html код менюшки, по шаблону
@@ -103,6 +106,17 @@ Class Menu extends CMS_System {
         }
         $html.='';
         return $html;
+    }
+    
+    //html код навигации
+    function navigation_html($name, $template_array){
+        $val = $this->get_punkt($name);
+        $template = $template_array[count($template_array)-1];
+        $html=str_replace(Array('{title}', '{url}', '{name}', '{access}', '{mother}'), Array($val['title'], $val['url'], $val['name'], $val['access'], $val['mother']), $template);
+        if($val['mother']){
+         return $this->navigation_html($val['mother'], Array($template_array[0])) . $html;
+        }
+         return $html;   
     }
 
     //Добавление/редактирование пункта в меню
