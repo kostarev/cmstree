@@ -49,10 +49,9 @@ try {
 //Считывание настроек из базы----------------------
 $raw_config = Array();
 $config = Array();
-$raw_conf_array = Array();
 $conf_dirs = Array(0);
 
-if ($row = $db->get("SELECT * FROM config ORDER BY mother;", 60)) {
+if ($row = $db->get("SELECT name,value,mother FROM config WHERE autoload='1' ORDER BY mother;", 60)) {
     foreach ($row AS $val) {
         if ($val['value'] == 'directory' AND $val['mother'] == '0') {
             $conf_dirs[$val['name']] = $val;
@@ -66,21 +65,16 @@ if ($row = $db->get("SELECT * FROM config ORDER BY mother;", 60)) {
 foreach ($raw_config AS $val) {
     if (isset($conf_dirs[$val['mother']]) AND $val['mother']) {
         $config[$val['mother']][$val['name']] = $val['value'];
-        $raw_conf_array[$val['mother']][$val['name']] = $val;
     } else {
         $config[$val['name']] = $val['value'];
-        $raw_conf_array[$val['name']] = $val;
     }
 }
 
 //Настройки системы
 $registry['conf'] = $config;
-$registry['conf_array'] = $raw_conf_array;
-$registry['conf_dirs'] = $conf_dirs;
 
 unset($raw_config);
 unset($config);
-unset($raw_conf_array);
 unset($conf_dirs);
 
 //------------------------------------------------------

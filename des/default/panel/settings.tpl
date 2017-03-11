@@ -1,5 +1,6 @@
 <div>
-    <?foreach($this->conf_dirs AS $val):
+    <?
+    foreach($conf_dirs AS $val):    
     if($val['group'] AND $val['group']<>$this->user['group'] AND $this->user['group']<>'root'){
    continue;
     }

@@ -9,6 +9,7 @@ Class Controller_Index Extends Controller_Base {
             
             echo '<pre>';
             print_r($_SESSION);
+            print_r($this->conf);
             echo '</pre>';
             
         }

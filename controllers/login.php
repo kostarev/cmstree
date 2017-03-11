@@ -4,6 +4,7 @@ Class Controller_login Extends Controller_Base {
 
     public function __construct($args) {
         parent::__construct($args);
+        SiteRead::getConfig('reg');
     }
 
     function registration() {

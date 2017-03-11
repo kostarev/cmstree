@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `config` (
   `type` set('text','int','checkbox') NOT NULL DEFAULT 'text' COMMENT 'Тип настройки',
   `value` varchar(100) NOT NULL COMMENT 'значение',
   `group` varchar(30) NOT NULL COMMENT 'Доступ к изменению настройки',
+  `autoload` BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (`mother`,`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Конфигурация системы';
 
@@ -40,17 +41,17 @@ CREATE TABLE IF NOT EXISTS `config` (
 -- Дамп данных таблицы `config`
 --
 
-INSERT INTO `config` (`mother`, `name`, `title`, `type`, `value`, `group`) VALUES
-('0', 'developer', 'Режим разработчика', 'text', 'directory', 'root'),
-('0', 'reg', 'Регистрация', 'text', 'directory', ''),
-('developer', 'memcache_table', 'Таблица Memcache', 'checkbox', '0', ''),
-('developer', 'params_table', 'Вывод контроллера и параметров', 'checkbox', '0', ''),
-('developer', 'sql_table', 'Таблица SQL запросов', 'checkbox', '0', ''),
-('developer', 'tpl_borders', 'Отображать границы шаблонов в html комментариях', 'checkbox', '0', ''),
-('reg', 'captcha', 'Captcha', 'checkbox', '1', ''),
-('reg', 'email', 'Поле email при регистрации', 'checkbox', '1', ''),
-('reg', 'email_must', 'Подтверждение email', 'checkbox', '1', ''),
-('reg', 'on', 'Регистрация включена', 'checkbox', '1', '');
+INSERT INTO `config` (`mother`, `name`, `title`, `type`, `value`, `group`, `autoload`) VALUES
+('0', 'developer', 'Режим разработчика', 'text', 'directory', 'root', '1'),
+('0', 'reg', 'Регистрация', 'text', 'directory', '', '1'),
+('developer', 'memcache_table', 'Таблица Memcache', 'checkbox', '0', '', '1'),
+('developer', 'params_table', 'Вывод контроллера и параметров', 'checkbox', '0', '', '1'),
+('developer', 'sql_table', 'Таблица SQL запросов', 'checkbox', '0', '', '1'),
+('developer', 'tpl_borders', 'Отображать границы шаблонов в html комментариях', 'checkbox', '0', '', '1'),
+('reg', 'captcha', 'Captcha', 'checkbox', '1', '', '0'),
+('reg', 'email', 'Поле email при регистрации', 'checkbox', '1', '', '0'),
+('reg', 'email_must', 'Подтверждение email', 'checkbox', '1', '', '0'),
+('reg', 'on', 'Регистрация включена', 'checkbox', '1', '', '1');
 
 -- --------------------------------------------------------
 

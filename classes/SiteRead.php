@@ -65,6 +65,15 @@ Class SiteRead Extends CMS_System {
 
         return $text;
     }
+    
+    //Получение настроек сайта, которые не загрузились автоматически
+    function getConfig($mother){
+        $res = $this->db->prepare("SELECT name, value FROM config WHERE mother = ?;");
+        $res->execute(Array($mother));
+        while($row=$res->fetch()){
+            $this->conf[$mother][$row['name']] = $row['value'];
+        }
+    }
 
 }
 
