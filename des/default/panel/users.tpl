@@ -20,9 +20,9 @@
     <?else:?>
     <?if($pages):?><div class="pages"><?=$pages;?></div><?endif;?>
     <table class="sys">
-        <tr><th>ID</th><th>Логин</th><th>Группа</th></tr>
+        <tr><th>ID</th><th>Логин</th><th>Имя</th><th>Группа</th></tr>
         <?foreach($users AS $val):?>
-        <tr><td><?=$val['id'];?></td><td><a href="<?=H;?>/user/<?=$val['id'];?>"><?=$val['login'];?></a></td><td><?=$val['group_title'];?></td></tr>
+        <tr><td><?=$val['id'];?></td><td><a href="<?=H;?>/user/<?=$val['id'];?>"><?=$val['login'];?></a></td><td><?=$val['name'];?></td><td><?=$val['group_title'];?></td></tr>
         <?endforeach;?>
     </table>
     <?if($pages):?><div class="pages"><?=$pages;?></div><?endif;?>

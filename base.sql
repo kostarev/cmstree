@@ -142,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `modules_files` (
 CREATE TABLE IF NOT EXISTS `tmp_users` (
   `login` varchar(50) NOT NULL COMMENT 'Уникальный логин',
   `pas` varchar(32) NOT NULL COMMENT 'Хэш пароля',
+  `name` VARCHAR(30) NOT NULL COMMENT 'Отображаемое имя' 
   `email` varchar(70) NOT NULL COMMENT 'Email пользователя',
   `code` varchar(50) NOT NULL COMMENT 'Уникальный код',
   `time` int(11) NOT NULL COMMENT 'Время создания записи',
@@ -165,17 +166,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_time` int(11) NOT NULL DEFAULT '0' COMMENT 'Последняя активность',
   `online_time` int(11) NOT NULL DEFAULT '0' COMMENT 'Суммарное время пребывания на сайте',
   `ip` VARCHAR(15) COMMENT 'IP адресс последнего посещения',
-  `ua` VARCHAR(150) COMMENT 'UserAgent последнего посещения',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`(15)),
-  UNIQUE KEY `login` (`login`(20))
+  `ua` VARCHAR(150) COMMENT 'UserAgent последнего посещения'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `login` (`login`(20)),
+  ADD KEY `email` (`email`(15)) USING BTREE;
 --
 -- Дамп данных таблицы `users`
 --login - admin, pas - admin
-INSERT INTO `users` (`id`, `login`, `pas`, `group`, `email`, `reg_time`) VALUES
-(1, 'admin', '18951848aa49a788c8d84f9263c7339c', 'root', 'test@mail.ru', 1355594448);
+INSERT INTO `users` (`id`, `login`, `pas`, `name`, `group`, `email`, `reg_time`) VALUES
+(1, 'admin', '18951848aa49a788c8d84f9263c7339c', 'Администратор','root', 'test@mail.ru', 1355594448);
 
 --
 -- Структура таблицы `guests`

@@ -27,6 +27,23 @@ Class User Extends CMS_System Implements ArrayAccess {
             return false;
         }
     }
+    
+    //изменение параметра профиля
+    function save($array){
+        $str = '';
+        $arr = Array();
+        $arr_values = Array();
+        foreach($array AS $key=>$val){
+            if(isset($this->arr[$key])){
+                $arr[] = $key . ' = ?';
+                $arr_values[] = $val;
+            }
+        }
+        $str = implode(',', $arr);
+        $arr_values[] = $this->arr['id'];
+        $res = $this->db->prepare("UPDATE users SET ".$str." WHERE id=?;");
+        $res->execute($arr_values);
+    }
 
     //Возвращает массив данных юзера
     function arr() {
@@ -40,8 +57,8 @@ Class User Extends CMS_System Implements ArrayAccess {
         if (!$row = $res->fetch()) {
             throw new Exception("Пользователь с логином $login не найден.");
         }
-
-        $md5pas = md5('cms' . md5(trim($pas)));
+        
+        $md5pas = Reg::me()->md5password($pas);
         if ($md5pas <> $row['pas']) {
             throw new Exception('Не верный пароль.<br /><a href="' . H . '/login/forget">Забыли пароль?</a>');
         }

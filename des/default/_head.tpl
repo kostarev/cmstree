@@ -29,7 +29,7 @@
                 <?else:?>
                 <p>
                     <img src="/avatar/<?=$this->user['id'];?>/small" alt="<?=$this->user['login'];?>" style='float:left;'/>
-                    <strong><?=$this->user['login'];?></strong> <br />
+                    <strong><?=$this->user['name'];?></strong> <br />
                     <?=$this->user['group_title'];?>  <br />
                     [<a href="<?=H;?>/login/logout" >Выход</a>]
                 </p>

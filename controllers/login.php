@@ -58,10 +58,10 @@ Class Controller_login Extends Controller_Base {
             $_POST['pas'] = trim($_POST['pas']);
 
             //Сохраняем поля формы
-            $_SESSION['reg']['login'] = $_POST['login'];
-            $_SESSION['reg']['email'] = $_POST['email'];
-            $_SESSION['reg']['pas'] = $_POST['pas'];
-            $_SESSION['reg']['repas'] = $_POST['repas'];
+            $_SESSION['reg']['login'] = isset($_POST['login'])?$_POST['login']:'';
+            $_SESSION['reg']['email'] = isset($_POST['email'])?$_POST['email']:'';
+            $_SESSION['reg']['pas'] = isset($_POST['pas'])?$_POST['pas']:'';
+            $_SESSION['reg']['repas'] = isset($_POST['repas'])?$_POST['repas']:'';
 
             if ($this->conf['reg']['captcha']) {
                 if (!$captcha->is_access($_POST['captcha'])) {
@@ -103,10 +103,9 @@ Class Controller_login Extends Controller_Base {
 
             //Если нет ошибок, регистрация
             if (!$error) {
-
+                
                 try {
-                    $reg_arr = SiteWrite::me()->registration($_POST);
-
+                    $reg_arr = Reg::me()->registration($_POST);
                     if ($this->conf['reg']['email_must']) {
                         $this->loc(H . '/login/email_confirm');
                     }
@@ -129,7 +128,6 @@ Class Controller_login Extends Controller_Base {
             //Заполняем сохранённые поля формы
             if (!empty($_SESSION['reg'])) {
                 foreach ($_SESSION['reg'] AS $key => $val) {
-
                     $this->des->set($key, $val);
                 }
             }
@@ -156,7 +154,7 @@ Class Controller_login Extends Controller_Base {
         if (isset($this->args[0])) {
             $code = $this->args[0];
             try {
-                $reg_arr = SiteWrite::me()->email_confirm($code);
+                $reg_arr = Reg::me()->email_confirm($code);
                 //Авторизируем пользователя
                 $_SESSION['user_id'] = $reg_arr['id'];
                 //Пишем куки-----
@@ -288,7 +286,7 @@ Class Controller_login Extends Controller_Base {
                 $this->error('Длина пароля должна быть не менее 5и символов.', false);
             } else {
                 //Всё ок--
-                $md5pas = md5('cms' . md5($_POST['pas']));
+                $md5pas = Reg::me()->md5password($_POST['pas']);
                 $res = $this->db->prepare("UPDATE users SET pas=? WHERE login=?;");
                 $res->execute(Array($md5pas, $info['login']));
                 $res = $this->db->prepare("DELETE FROM tmp_users WHERE code=?;");

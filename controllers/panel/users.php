@@ -20,7 +20,7 @@ Class Controller_users Extends Controller_Base {
         $page=$arr['page'];
         $this->des->set('pages',Func::pages($page,$max,H.'/panel/users/{page}'));
         
-        $res = $this->db->query("SELECT users.id,users.login,groups.title AS group_title
+        $res = $this->db->query("SELECT users.id,users.login,users.name,groups.title AS group_title
             FROM users
             LEFT JOIN groups ON groups.name=users.group
             ORDER BY users.id

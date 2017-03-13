@@ -31,7 +31,7 @@
         <p><small>Email</small><br /><input type="email" name="email" value="<?=$email;?>" <?if($this->conf['reg']['email_must']):?>required="required"<?endif;?>  placeholder="Email"/></p>
         <?endif;?>
         <?if($this->conf['reg']['captcha']):?>
-        <p><img src="<?=$captcha->url();?>"  alt="Включите картинки"/></p>
+        <p><img id="captcha" src="<?=$captcha->url();?>"  onClick="document.getElementById('captcha').src='<?=$captcha->url();?>&' + Math.random();" alt="Нажмите для обновления картинки"/></p>
         <p><small>Код с картинки</small><br /><input type="text" required="required" placeholder="Символы на картинке" name="captcha" /></p>
         <?endif;?>
         <p><input type="submit" value="Регистрация"/></p>
@@ -44,7 +44,7 @@
     Для восстановления пароля, введите ваш логин либо адрес электронной почты.
     <form method="post" action="#">
         <p><input type="text" placeholder="Ваш Логин или Email" name="emlogin" required="required"/></p>
-        <p><img src="<?=$captcha->url();?>" alt="Включите картинки"/></p>
+        <p><img id="captcha" src="<?=$captcha->url();?>" onClick="document.getElementById('captcha').src='<?=$captcha->url();?>&' + Math.random();" alt="Нажмите для обновления картинки"/></p>
         <p><input type="text" required="required" placeholder="Символы на картинке" name="captcha" /></p>
         <p><input type="submit" value="Продолжить"/></p>
     </form>
