@@ -49,9 +49,7 @@ Class Reg extends CMS_System {
         }
         //-------------------------
 
-        $res = $this->db->prepare("SELECT id FROM users WHERE login=?;");
-        $res->execute(Array($login));
-        if ($row = $res->fetch()) {
+        if (!$this->nameIsFree($login)) {
             throw new Exception("Пользователь с логином $login уже зарегистрирован. Выберите другой логин.");
         }
 
@@ -115,6 +113,16 @@ Class Reg extends CMS_System {
         }
 
         $id = $this->db->lastInsertId();
+        
+        //Высылаем на почту подтверждение регистрации
+         $from_name = 'Администрация ' . $_SERVER['HTTP_HOST'];
+         $from_email = 'admin@' . $_SERVER['HTTP_HOST'];
+         $mail_subject = 'Регистрация на сайте ' . $_SERVER['HTTP_HOST'];
+         $mail_text = $login . ', Вы успешно зарегистрировались на сайте ' . $_SERVER['HTTP_HOST'];;
+         Func::send_mail($from_name, $from_email, $login, $email, $mail_subject, $mail_text);
+
+        
+        
         return Array('id' => $id, 'pas' => $md5pas, 'email' => $email, 'login' => $login);
     }
 
@@ -130,6 +138,13 @@ Class Reg extends CMS_System {
         if (!$res->execute(Array($row['login'], $row['login'], $row['pas'], $row['email']))) {
             throw new Exception($this->db->errorInfo());
         }
+        
+        //Высылаем на почту подтверждение регистрации
+         $from_name = 'Администрация ' . $_SERVER['HTTP_HOST'];
+         $from_email = 'admin@' . $_SERVER['HTTP_HOST'];
+         $mail_subject = 'Регистрация на сайте ' . $_SERVER['HTTP_HOST'];
+         $mail_text = $login . ', Вы успешно зарегистрировались на сайте ' . $_SERVER['HTTP_HOST'];;
+         Func::send_mail($from_name, $from_email, $row['login'], $row['email'], $mail_subject, $mail_text);
 
         $id = $this->db->lastInsertId();
         $res = $this->db->prepare("DELETE FROM tmp_users WHERE code=?;");
@@ -140,8 +155,8 @@ Class Reg extends CMS_System {
     
     //Проверка имени на занятость
     function nameIsFree($name){
-        $res = $this->db->prepare("SELECT id FROM users WHERE name=?;");
-        $res->execute(Array($name));
+        $res = $this->db->prepare("SELECT id FROM users WHERE name=? OR login=?;");
+        $res->execute(Array($name, $name));
         if($res->fetch()){
             return false;
         }else{

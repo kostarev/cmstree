@@ -38,12 +38,13 @@ Class Controller_user Extends Controller_Base {
 
         //Ajax Проверка занятости имени
         if (isset($_POST['check_name'])) {
+            $name = Func::filtr($_POST['name']);
             $this->des->auto_head = false;
             //Длина имени
-            if (mb_strlen($_POST['check_name'], 'UTF-8') < 3 OR mb_strlen($_POST['check_name'], 'UTF-8') > 15) {
+            if (mb_strlen($name, 'UTF-8') < 3 OR mb_strlen($name, 'UTF-8') > 15) {
                 $str = '<span class="red">Длина имени от 3х до 15и символов.</span>';
             } else {
-                if (Reg::me()->nameIsFree($_POST['check_name'])) {
+                if (Reg::me()->nameIsFree($name)) {
                     $str = '<span class="green">Имя свободно</span>';
                 } else {
                     $str = '<span class="red">Имя занято!</span>';

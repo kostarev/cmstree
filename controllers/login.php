@@ -28,13 +28,12 @@ Class Controller_login Extends Controller_Base {
         //Ajax Проверка занятости логина
         if (isset($_POST['check_login'])) {
             $this->des->auto_head = false;
+            $login = Func::filtr($_POST['check_login']);
             //Длина логина
-            if (mb_strlen($_POST['check_login'], 'UTF-8') < 3 OR mb_strlen($_POST['check_login'], 'UTF-8') > 10) {
+            if (mb_strlen($login, 'UTF-8') < 3 OR mb_strlen($login, 'UTF-8') > 10) {
                 $str = '<span class="red">Длина от 3х до 10и символов.</span>';
             } else {
-                $res = $this->db->prepare("SELECT login FROM users WHERE login=?;");
-                $res->execute(Array($_POST['check_login']));
-                if ($row = $res->fetch()) {
+                if (!Reg::me()->nameIsFree($login)) {
                     $str = '<span class="red">Уже занят!</span>';
                 } else {
                     //валидация логина

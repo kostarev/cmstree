@@ -48,6 +48,7 @@ INSERT INTO `config` (`mother`, `name`, `title`, `type`, `value`, `group`, `auto
 ('developer', 'params_table', 'Вывод контроллера и параметров', 'checkbox', '0', '', '1'),
 ('developer', 'sql_table', 'Таблица SQL запросов', 'checkbox', '0', '', '1'),
 ('developer', 'tpl_borders', 'Отображать границы шаблонов в html комментариях', 'checkbox', '0', '', '1'),
+('developer', 'show_gen_stat', 'Статистика генерации страницы', 'checkbox', '1', 'root', '1'),
 ('reg', 'captcha', 'Captcha', 'checkbox', '1', '', '0'),
 ('reg', 'email', 'Поле email при регистрации', 'checkbox', '1', '', '0'),
 ('reg', 'email_must', 'Подтверждение email', 'checkbox', '1', '', '0'),
