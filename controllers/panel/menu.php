@@ -33,7 +33,7 @@ Class Controller_menu Extends Controller_Base {
 
         if (isset($this->args[1])) {
             //Поднятие вверх
-            if ($this->args[1] == 'up') {
+            if ($this->args[1] == 'up' AND isset($_POST['confirm'])) {
                 try {
                     $this->des->menu->up($name);
                     $this->loc(H . '/panel/menu');
@@ -42,7 +42,7 @@ Class Controller_menu Extends Controller_Base {
                 }
             }
             //Опускание вниз
-            elseif ($this->args[1] == 'down') {
+            elseif ($this->args[1] == 'down' AND isset($_POST['confirm'])) {
                 try {
                     $this->des->menu->down($name);
                     $this->loc(H . '/panel/menu');
@@ -60,7 +60,7 @@ Class Controller_menu Extends Controller_Base {
                 }
             }
             //Удаление пункта
-            elseif ($this->args[1] == 'del') {
+            elseif ($this->args[1] == 'del' AND isset($_POST['confirm'])) {
                 try {
                     $this->des->menu->del($name);
                     $this->loc(H . '/panel/menu');
@@ -69,7 +69,9 @@ Class Controller_menu Extends Controller_Base {
                 }
             }
         }
-
+        
+        
+        $this->des->set('args',$this->args);
         $this->des->set('menu_tree', $this->menu_tree());
         $this->des->display('panel/menu');
     }

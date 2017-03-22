@@ -2,6 +2,11 @@
 div.menu_tree div{margin:3px;margin-left:30px;padding:5px; border:solid 1px #cccccc; border-left:dotted 1px red;}
 </style>
 
+<?if(isset($args[1])){
+    $this->confirmForm('Подтвердите действие', '?');
+    }
+?>
+
 <?if($menu_arr):?>
 <form method="post" action="#">
     <p><input name="name" value="<?=$menu_arr['name'];?>" placeholder="Системное имя" /></p>
@@ -17,4 +22,5 @@ div.menu_tree div{margin:3px;margin-left:30px;padding:5px; border:solid 1px #ccc
 <div class="menu_tree">
 <?=$menu_tree['html'];?>
 </div>
+    
 </div>

@@ -1,4 +1,4 @@
-<div class="confirmForm"><?=$confirm_str;?><br />
+<div name="confirmForm" class="confirmForm"><?=$confirm_str;?><br />
 <form method="post" action="#">
     <p>
         <input type="submit" class="button" name="confirm" value="Ок" /> 
